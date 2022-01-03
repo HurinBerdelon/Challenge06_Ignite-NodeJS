@@ -5,6 +5,9 @@ import { UsersRepository } from '../../modules/users/repositories/UsersRepositor
 
 import { IStatementsRepository } from '../../modules/statements/repositories/IStatementsRepository';
 import { StatementsRepository } from '../../modules/statements/repositories/StatementsRepository';
+import { ITransactionsRepository } from '../../modules/statements/repositories/ITransactionsRepository';
+import { TransactionRepository } from 'typeorm';
+import { TransactionsRepository } from '../../modules/statements/repositories/TransactionsRepository';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -14,4 +17,9 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IStatementsRepository>(
   'StatementsRepository',
   StatementsRepository
+);
+
+container.registerSingleton<ITransactionsRepository>(
+  'TransactionsRepository',
+  TransactionsRepository
 );

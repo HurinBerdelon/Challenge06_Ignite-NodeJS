@@ -27,14 +27,16 @@ export class InMemoryStatementsRepository implements IStatementsRepository {
   async getUserBalance({ user_id, with_statement = false }: IGetBalanceDTO):
     Promise<
       { balance: number } | { balance: number, statement: Statement[] }
-    >
-  {
+    > {
     const statement = this.statements.filter(operation => operation.user_id === user_id);
 
     const balance = statement.reduce((acc, operation) => {
       if (operation.type === 'deposit') {
         return acc + operation.amount;
-      } else {
+      } else if (operation.type === 'transfer') {
+        return acc - operation.amount;
+      }
+      else {
         return acc - operation.amount;
       }
     }, 0)

@@ -8,6 +8,7 @@ import {
 import { v4 as uuid } from 'uuid';
 
 import { Statement } from '../../statements/entities/Statement';
+import { Transaction } from '../../statements/entities/Transaction';
 
 @Entity('users')
 export class User {
@@ -26,6 +27,9 @@ export class User {
   @OneToMany(() => Statement, statement => statement.user)
   statement: Statement[];
 
+  @OneToMany(() => Transaction, transaction => transaction.sender)
+  transaction: Transaction[];
+
   @CreateDateColumn()
   created_at: Date;
 
@@ -33,7 +37,7 @@ export class User {
   updated_at: Date;
 
   constructor() {
-    if(!this.id) {
+    if (!this.id) {
       this.id = uuid();
     }
   }
